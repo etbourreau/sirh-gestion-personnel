@@ -12,3 +12,6 @@ target
 
 # tern plugin
 .tern-project
+
+*.html
+*.jpg

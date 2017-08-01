@@ -1,7 +1,11 @@
 package dev.sgp.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,44 +31,19 @@ public class EditerCollaborateurController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Optional<String> matricule = Optional.ofNullable(req.getParameter("matricule"));
-		Optional<String> titre = Optional.ofNullable(req.getParameter("titre"));
-		Optional<String> nom = Optional.ofNullable(req.getParameter("nom"));
-		Optional<String> prenom = Optional.ofNullable(req.getParameter("prenom"));
+		List<String> params = Stream.of("matricule", "titre", "nom", "prenom").filter(s -> req.getParameter(s)==null).collect(Collectors.toList());
 		
-		resp.setContentType("text/html");
 		String msg = null;
 		Integer code = null;
 		
-		if(!matricule.isPresent() || !titre.isPresent() || !nom.isPresent() || !prenom.isPresent()){
-			msg = "Les paramètres suivants sont incorrects : ";
-			boolean first = true;
-			
-			if(!matricule.isPresent()){
-				first = false;
-				msg += "le matricule";
-			}
-			
-			if(!titre.isPresent()){
-				if(first){ first = false; }else{ msg += ", "; }
-				msg += "le titre";
-			}
-			
-			if(!nom.isPresent()){
-				if(first){ first = false; }else{ msg += ", "; }
-				msg += "le nom";
-			}
-			
-			if(!prenom.isPresent()){
-				if(!first){ msg += ", "; }
-				msg += "le prénom";
-			}
-			msg += ".";
-			code = 400;
-		}else{
+		resp.setContentType("text/html");
+		if(params.isEmpty()){
 			msg = "Création d'un collaborateur avec les informations suivantes :<br>";
-			msg += "Matricule="+matricule.get()+",titre="+titre.get()+",nom="+nom.get()+",prenom="+prenom.get();
+			msg += "Matricule="+req.getParameter("matricule")+",titre="+req.getParameter("titre")+",nom="+req.getParameter("nom")+",prenom="+req.getParameter("prenom");
 			code = 201;
+		}else{
+			msg = "Les paramètres suivants sont incorrects : "+String.join(", ", params)+".";
+			code = 400;
 		}
 		
 		resp.setStatus(code);
