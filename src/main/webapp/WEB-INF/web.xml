@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 	<display-name>sgp</display-name>
-	
+
 	<servlet>
 		<servlet-name>ListerCollaborateursController</servlet-name>
 		<servlet-class>dev.sgp.web.ListerCollaborateursController</servlet-class>
@@ -13,7 +13,7 @@
 		<servlet-name>ListerCollaborateursController</servlet-name>
 		<url-pattern>/collaborateurs/lister</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>EditerCollaborateursController</servlet-name>
 		<servlet-class>dev.sgp.web.EditerCollaborateurController</servlet-class>
@@ -22,7 +22,7 @@
 		<servlet-name>EditerCollaborateursController</servlet-name>
 		<url-pattern>/collaborateurs/editer</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>AjouterCollaborateursController</servlet-name>
 		<servlet-class>dev.sgp.web.AjouterCollaborateurController</servlet-class>
@@ -31,4 +31,22 @@
 		<servlet-name>AjouterCollaborateursController</servlet-name>
 		<url-pattern>/collaborateurs/ajouter</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>StatsController</servlet-name>
+		<servlet-class>dev.sgp.web.StatsController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StatsController</servlet-name>
+		<url-pattern>/stats</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>VisiteFilter</filter-name>
+		<filter-class>dev.sgp.filtre.FrequentationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>VisiteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>
