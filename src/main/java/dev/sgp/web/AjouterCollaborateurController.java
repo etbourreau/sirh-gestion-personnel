@@ -1,25 +1,23 @@
 package dev.sgp.web;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dev.sgp.entite.Collaborateur;
 import dev.sgp.service.CollaborateurService;
-import dev.sgp.service.DepartementService;
 import dev.sgp.util.Constantes;
 
+@WebServlet("/collaborateurs/ajouter")
 public class AjouterCollaborateurController extends HttpServlet {
 
 	private final static CollaborateurService collabService = Constantes.COLLAB_SERVICE;

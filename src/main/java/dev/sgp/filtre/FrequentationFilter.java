@@ -8,27 +8,28 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import dev.sgp.entite.VisiteWeb;
 import dev.sgp.service.VisiteService;
 import dev.sgp.util.Constantes;
 
+@WebFilter("/*")
 public class FrequentationFilter implements Filter {
 	
-	private FilterConfig config = null;
 	private final VisiteService visites = Constantes.VISITE_SERVICE;
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		this.config = filterConfig;
+		//Initializing the filter
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String path = ((HttpServletRequest) request).getRequestURI();
-		if(path.contains("/bootstrap-") || path.contains("/resources/")){
+		if(path.contains("/bootstrap-") || path.contains("/assets/")){
 			return;
 		}
 		long before = System.currentTimeMillis();
@@ -40,6 +41,7 @@ public class FrequentationFilter implements Filter {
 
 	@Override
 	public void destroy() {
+		//Autodestroying
 	}
 
 }

@@ -47,7 +47,7 @@
 						<div class="col-xs-8">
 							<select name="filtreDépartement" class="form-control"
 								style="width: 100%;">
-								<c:forEach var="listeDepartements"
+								<c:forEach var="d"
 									items="${listeDepartements}">
 									<option value="${d.id}">${d.nom}</option>
 								</c:forEach>

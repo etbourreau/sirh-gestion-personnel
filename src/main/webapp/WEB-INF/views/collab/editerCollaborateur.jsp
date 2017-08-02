@@ -11,9 +11,9 @@
 <meta charset="UTF-8">
 <title>SGP - App</title>
 <link rel="stylesheet"
-	href="<c:url value='/bootstrap-3.3.7-dist/css/bootstrap.min.css'/>">
+	href="<c:url value='/bootstrap-3.3.7-dist/css/bootstrap.min.css' />">
 <link rel="stylesheet"
-	href="<c:url value='/bootstrap-3.3.7-dist/js/bootstrap.min.css'/>">
+	href="<c:url value='/bootstrap-3.3.7-dist/js/bootstrap.min.css' />">
 
 <style>
 .accordeon {
@@ -46,7 +46,7 @@
 
 		<div class="col-xs-4" style="padding-top: 10%;">
 			<img
-				src="<c:url value='/assets/collaborateurs/${param.collab.photo} }'/>"
+				src="<c:url value='/assets/collaborateurs/${collab.photo} }'/>"
 				alt="image" title="image" class="img-responsive" />
 		</div>
 
