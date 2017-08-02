@@ -22,4 +22,13 @@
 		<servlet-name>EditerCollaborateursController</servlet-name>
 		<url-pattern>/collaborateurs/editer</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AjouterCollaborateursController</servlet-name>
+		<servlet-class>dev.sgp.web.AjouterCollaborateurController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AjouterCollaborateursController</servlet-name>
+		<url-pattern>/collaborateurs/ajouter</url-pattern>
+	</servlet-mapping>
 </web-app>
