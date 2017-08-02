@@ -26,8 +26,6 @@ public class AjouterCollaborateurController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String msg = (String) req.getParameter("msg");
-		req.setAttribute("msg", msg);
 		req.getRequestDispatcher("/WEB-INF/views/collab/ajouterCollaborateur.jsp").forward(req, resp);
 
 	}
@@ -48,7 +46,6 @@ public class AjouterCollaborateurController extends HttpServlet {
 					dateNaissance, params.get(3), params.get(4), collabService.getEmail(params.get(0), params.get(1)),
 					"image.jpg", ZonedDateTime.now(), true, "defaultFunction", 0);
 			collabService.sauvegarderCollaborateur(collab);
-		} else {
 		}
 		resp.sendRedirect("lister");
 	}

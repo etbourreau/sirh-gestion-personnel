@@ -11,14 +11,13 @@ public class DepartementService {
 	List<Departement> listeDepartements = new ArrayList<>();
 	
 	public DepartementService(){
-		listeDepartements.add(new Departement(0, "defaultDepartement"));
-		listeDepartements.add(new Departement(1, "Comptabilité"));
-		listeDepartements.add(new Departement(2, "Ressources Humaines"));
-		listeDepartements.add(new Departement(3, "Informatique"));
-		listeDepartements.add(new Departement(4, "Administratif"));
+		listeDepartements.add(new Departement(0, "Comptabilité"));
+		listeDepartements.add(new Departement(1, "Ressources Humaines"));
+		listeDepartements.add(new Departement(2, "Informatique"));
+		listeDepartements.add(new Departement(3, "Administratif"));
 	}
 
-	public List<Departement> listerCollaborateurs() {
+	public List<Departement> listerDepartements() {
 		return listeDepartements;
 	}
 

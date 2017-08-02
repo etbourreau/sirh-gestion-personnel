@@ -1,13 +1,16 @@
+<%@page import="dev.sgp.entite.Departement"%>
 <%@page import="dev.sgp.entite.Collaborateur"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>SGP - App</title>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/bootstrap-3.3.7-dist/js/bootstrap.min.css">
+<meta charset="UTF-8">
+<title>SGP - App</title>
+<link rel="stylesheet"
+	href="<c:url value='/bootstrap-3.3.7-dist/css/bootstrap.min.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='/bootstrap-3.3.7-dist/js/bootstrap.min.css'/>">
 </head>
 <body>
 	<div class="container-fluid">
@@ -24,7 +27,7 @@
 					<div class="col-xs-4" style="text-align: center;">
 						<div class="col-xs-8">
 							<input name="recherche" type="text" placeholder="Recherche"
-								class="form-control input-md" required="" style="width: 100%;">
+								class="form-control input-md" required style="width: 100%;">
 						</div>
 						<div class="col-xs-4">
 							<button class="btn btn-primary">Rechercher</button>
@@ -44,8 +47,10 @@
 						<div class="col-xs-8">
 							<select name="filtreDépartement" class="form-control"
 								style="width: 100%;">
-								<option value="1">Département 1</option>
-								<option value="2">Département 2</option>
+								<c:forEach var="listeDepartements"
+									items="${listeDepartements}">
+									<option value="${d.id}">${d.nom}</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
@@ -54,60 +59,58 @@
 
 			<div class="container">
 
-				<%
-					List<Collaborateur> collaborateurs = (List<Collaborateur>) request.getAttribute("listeCollabs");
-					for (Collaborateur collaborateur : collaborateurs) {
-				%>
+				<c:forEach var="collab" items="${listeCollabs}">
 
-				<div class="col-md-4">
-					<form class="form-horizontal">
-						<legend><%=collaborateur.getNom().toUpperCase()%>
-							<%=collaborateur.getPrenom().toUpperCase()%></legend>
-						<div class="col-xs-4">
-							<img src="<%=collaborateur.getPhoto()%>"
-								alt="<%=collaborateur.getNom().toUpperCase()%> <%=collaborateur.getPrenom().toUpperCase()%>"
-								title="<%=collaborateur.getNom().toUpperCase()%> <%=collaborateur.getPrenom().toUpperCase()%>"
-								class="img-responsive" />
-						</div>
-						<div class="col-xs-8">
-							<div class="row">
-								<div class="col-xs-6"
-									style="text-align: right; white-space: nowrap;">
-									<strong>Fonction :</strong>
+					<div class="col-md-4">
+						<form class="form-horizontal" method="get" action="editer">
+							<legend>${collab.nom}
+								${collaborateur.prenom}</legend>
+							<div class="col-xs-4">
+								<img
+									src="<c:url value='/assets/collaborateurs/${collab.photo}'/>"
+									alt="${collab.nom} ${collab.prenom}"
+									title="${collab.nom} ${collab.prenom}"
+									class="img-responsive" />
+							</div>
+							<div class="col-xs-8">
+								<div class="row">
+									<div class="col-xs-6"
+										style="text-align: right; white-space: nowrap;">
+										<strong>Fonction :</strong>
+									</div>
+									<div class="col-xs-6">${collab.intitulePoste}</div>
 								</div>
-								<div class="col-xs-6"><%=collaborateur.getIntitulePoste()%></div>
-							</div>
-							<div class="row">
-								<div class="col-xs-6"
-									style="text-align: right; white-space: nowrap;">
-									<strong>Département :</strong>
+								<div class="row">
+									<div class="col-xs-6"
+										style="text-align: right; white-space: nowrap;">
+										<strong>Département :</strong>
+									</div>
+									<div class="col-xs-6">${collab.departement.nom}</div>
 								</div>
-								<div class="col-xs-6"><%=collaborateur.getDepartement().getNom()%></div>
-							</div>
-							<div class="row">
-								<div class="col-xs-6"
-									style="text-align: right; white-space: nowrap;">
-									<strong>Email :</strong>
+								<div class="row">
+									<div class="col-xs-6"
+										style="text-align: right; white-space: nowrap;">
+										<strong>Email :</strong>
+									</div>
+									<div class="col-xs-6">${collab.emailPro}</div>
 								</div>
-								<div class="col-xs-6"><%=collaborateur.getEmailPro()%></div>
-							</div>
-							<div class="row">
-								<div class="col-xs-6"
-									style="text-align: right; white-space: nowrap;">
-									<strong>Téléphone :</strong>
+								<div class="row">
+									<div class="col-xs-6"
+										style="text-align: right; white-space: nowrap;">
+										<strong>Téléphone :</strong>
+									</div>
+									<div class="col-xs-6">%telephone%</div>
 								</div>
-								<div class="col-xs-6">%telephone%</div>
+								<div class="row" style="text-align: center;">
+									<input type="hidden" name="id"
+										value="${collab.matricule}" /> <input
+										type="submit" class="btn btn-primary" value="Editer" />
+								</div>
 							</div>
-							<div class="row" style="text-align: center;">
-								<input type="submit" class="btn btn-primary" value="Editer" />
-							</div>
-						</div>
-					</form>
-				</div>
+						</form>
+					</div>
 
-				<%
-					}
-				%>
+				</c:forEach>
 
 			</div>
 		</div>

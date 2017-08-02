@@ -11,18 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import dev.sgp.entite.Collaborateur;
 import dev.sgp.service.CollaborateurService;
+import dev.sgp.service.DepartementService;
 import dev.sgp.util.Constantes;
 
 public class ListerCollaborateursController extends HttpServlet {
-	private static final long serialVersionUID = 5785778365429091981L;
-	
+
 	private final CollaborateurService collabService = Constantes.COLLAB_SERVICE;
+	private final DepartementService departementService = Constantes.DEPARTEMENT_SERVICE;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		List<Collaborateur> collaborateurs = collabService.listerCollaborateurs();
-		req.setAttribute("listeCollabs", collaborateurs);
+		req.setAttribute("listeCollabs", collabService.listerCollaborateurs());
+		req.setAttribute("listeDepartements", departementService.listerDepartements());
 		req.getRequestDispatcher("/WEB-INF/views/collab/listerCollaborateurs.jsp").forward(req, resp);
 		
 	}
