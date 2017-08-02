@@ -3,7 +3,13 @@ package dev.sgp.entite;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
+import dev.sgp.service.CollaborateurService;
+import dev.sgp.service.DepartementService;
+import dev.sgp.util.Constantes;
+
 public class Collaborateur {
+
+	private final DepartementService departementService = Constantes.DEPARTEMENT_SERVICE;
 	
 	private String matricule;
 	private String nom;
@@ -15,13 +21,15 @@ public class Collaborateur {
 	private String photo;
 	private ZonedDateTime dateHeureCreation;
 	private Boolean actif;
+	private String intitulePoste;
+	private Departement departement;
 	
 	public Collaborateur() {
 		super();
 	}
 
 	public Collaborateur(String matricule, String nom, String prenom, LocalDate dateNaissance, String adresse,
-			String numeroSS, String emailPro, String photo, ZonedDateTime dateHeureCreation, Boolean actif) {
+			String numeroSS, String emailPro, String photo, ZonedDateTime dateHeureCreation, Boolean actif, String intitulePoste, int idDepartement) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
@@ -33,6 +41,8 @@ public class Collaborateur {
 		this.photo = photo;
 		this.dateHeureCreation = dateHeureCreation;
 		this.actif = actif;
+		this.intitulePoste = intitulePoste;
+		this.departement = departementService.getDepartementById(idDepartement);
 	}
 
 	public String getMatricule() {
@@ -115,8 +125,24 @@ public class Collaborateur {
 		this.actif = actif;
 	}
 	
+	public String getIntitulePoste() {
+		return intitulePoste;
+	}
+
+	public void setIntitulePoste(String intitulePoste) {
+		this.intitulePoste = intitulePoste;
+	}
+
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+	
 	public String toString(){
-		return this.nom+" "+this.prenom+" "+this.adresse+" "+this.matricule+" "+this.numeroSS+" "+this.emailPro+" "+this.photo;
+		return this.nom+" "+this.prenom+" "+this.adresse+" "+this.matricule+" "+this.numeroSS+" "+this.emailPro+" "+this.photo+" "+this.intitulePoste+" "+this.departement.getNom();
 	}
 	
 }
