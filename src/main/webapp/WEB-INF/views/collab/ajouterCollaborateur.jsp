@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>SGP - App</title>
 <link rel="stylesheet"
-	href="<c:url value='/bootstrap-3.3.7-dist/css/bootstrap.min.css'/>">
+	href="<c:url value='/res/bootstrap-3.3.7-dist/css/bootstrap.min.css'/>">
 <link rel="stylesheet"
-	href="<c:url value='/bootstrap-3.3.7-dist/js/bootstrap.min.css'/>">
+	href="<c:url value='/res/bootstrap-3.3.7-dist/js/bootstrap.min.js'/>">
 </head>
 <body>
 	<div class="container-fluid">
@@ -37,13 +37,13 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 control-label" for="datenaissance">Date
+					<label class="col-md-3 control-label" for="dateNaissance">Date
 						de naissance</label>
 					<div class="col-md-8">
-						<input id="datenaissance" name="datenaissance" type="text"
-							placeholder="JJ-MM-YYYY" pattern="[0-3]\d-[0-1]\d-\d{4}"
+						<input id="dateNaissance" name="dateNaissance" type="text"
+							placeholder="JJ-MM-YYYY" pattern="^[0-3]\d-[0-1]\d-\d{4}$"
 							title="Merci de saisir une date au format JJ-MM-AAAA"
-							class="form-control input-md" required=>
+							class="form-control input-md" required>
 					</div>
 				</div>
 				<div class="form-group">
@@ -54,12 +54,12 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 control-label" for="numss">Numéro de
+					<label class="col-md-3 control-label" for="numeroSS">Numéro de
 						Sécurité Sociale</label>
 					<div class="col-md-8">
-						<input id="numss" name="numss" type="text"
+						<input id="numeroSS" name="numeroSS" type="text"
 							placeholder="Numéro de Sécurité Sociale du collaborateur"
-							pattern="[1-2][0-9]{14}"
+							pattern="^[1-2][0-9]{14}$"
 							title="Merci de renseigner un numéro de sécurité sociale valide"
 							class="form-control input-md" required>
 					</div>

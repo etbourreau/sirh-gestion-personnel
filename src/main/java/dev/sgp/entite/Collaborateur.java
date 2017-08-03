@@ -3,14 +3,23 @@ package dev.sgp.entite;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import dev.sgp.service.CollaborateurService;
-import dev.sgp.service.DepartementService;
-import dev.sgp.util.Constantes;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="collaborateur")
+@NamedQueries({
+@NamedQuery(name="collaborateur.findAllCollaborateurs", query="select c from Collaborateur c"),
+@NamedQuery(name="collaborateur.getCollaborateurByMatricule", query="select c from Collaborateur c where c.matricule=:matricule")
+})
 public class Collaborateur {
-
-	private final DepartementService departementService = Constantes.DEPARTEMENT_SERVICE;
 	
+	@Id
 	private String matricule;
 	private String nom;
 	private String prenom;
@@ -22,14 +31,21 @@ public class Collaborateur {
 	private ZonedDateTime dateHeureCreation;
 	private Boolean actif;
 	private String intitulePoste;
+	@ManyToOne
+	@JoinColumn(name="idDepartement")
 	private Departement departement;
-	
+	private String banque;
+	private String bic;
+	private String iban;
+	private String tel;
+
 	public Collaborateur() {
 		super();
 	}
 
 	public Collaborateur(String matricule, String nom, String prenom, LocalDate dateNaissance, String adresse,
-			String numeroSS, String emailPro, String photo, ZonedDateTime dateHeureCreation, Boolean actif, String intitulePoste, int idDepartement) {
+			String numeroSS, String emailPro, String photo, ZonedDateTime dateHeureCreation, Boolean actif,
+			String intitulePoste, Departement departement, String banque, String bic, String iban, String tel) {
 		super();
 		this.matricule = matricule;
 		this.nom = nom;
@@ -42,7 +58,11 @@ public class Collaborateur {
 		this.dateHeureCreation = dateHeureCreation;
 		this.actif = actif;
 		this.intitulePoste = intitulePoste;
-		this.departement = departementService.getDepartementById(idDepartement);
+		this.departement = departement;
+		this.banque = banque;
+		this.bic = bic;
+		this.iban = iban;
+		this.tel = tel;
 	}
 
 	public String getMatricule() {
@@ -124,7 +144,7 @@ public class Collaborateur {
 	public void setActif(Boolean actif) {
 		this.actif = actif;
 	}
-	
+
 	public String getIntitulePoste() {
 		return intitulePoste;
 	}
@@ -141,8 +161,41 @@ public class Collaborateur {
 		this.departement = departement;
 	}
 	
-	public String toString(){
-		return this.nom+" "+this.prenom+" "+this.adresse+" "+this.matricule+" "+this.numeroSS+" "+this.emailPro+" "+this.photo+" "+this.intitulePoste+" "+this.departement.getNom();
+	public String getTel() {
+		return tel;
 	}
-	
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getBanque() {
+		return banque;
+	}
+
+	public void setBanque(String banque) {
+		this.banque = banque;
+	}
+
+	public String getBic() {
+		return bic;
+	}
+
+	public void setBic(String bic) {
+		this.bic = bic;
+	}
+
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+	public String toString() {
+		return this.nom + " " + this.prenom + " " + this.adresse + " " + this.matricule + " " + this.numeroSS + " "
+				+ this.emailPro + " " + this.photo + " " + this.intitulePoste + " " + this.departement.getNom();
+	}
+
 }

@@ -64,6 +64,12 @@
 			<artifactId>java-time-jsptags</artifactId>
 			<version>1.1.4</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.sun.commons</groupId>
+			<artifactId>beanutils</artifactId>
+			<version>1.6.1-20070314</version>
+		</dependency>
 	</dependencies>
 
 </project>

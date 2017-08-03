@@ -3,26 +3,33 @@ package dev.sgp.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import dev.sgp.entite.Departement;
 import dev.sgp.exceptions.InvalidDepartementException;
 
+@Stateless
 public class DepartementService {
 
-	List<Departement> listeDepartements = new ArrayList<>();
-	
-	public DepartementService(){
-		listeDepartements.add(new Departement(0, "Comptabilité"));
-		listeDepartements.add(new Departement(1, "Ressources Humaines"));
-		listeDepartements.add(new Departement(2, "Informatique"));
-		listeDepartements.add(new Departement(3, "Administratif"));
+	@PersistenceContext private EntityManager em;
+
+	public void sauvegarderDepartement(Departement departement) {
+		em.persist(departement);
 	}
 
 	public List<Departement> listerDepartements() {
-		return listeDepartements;
+		return em.createNamedQuery("departement.findAllDepartements",
+				Departement.class)
+				.getResultList();
 	}
 
 	public Departement getDepartementById(int idDepartement) {
-		return listeDepartements.stream().filter(d -> d.getId()==idDepartement).findAny().orElseThrow(InvalidDepartementException::new);
+		return em.createNamedQuery("departement.getDepartementById",
+				Departement.class)
+				.setParameter("id", idDepartement)
+				.getSingleResult();
 	}
 
 }

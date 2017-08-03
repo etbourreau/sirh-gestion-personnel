@@ -4,16 +4,16 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>SGP - App</title>
 <link rel="stylesheet"
-	href="<c:url value='/bootstrap-3.3.7-dist/css/bootstrap.min.css' />">
+	href="<c:url value='/res/bootstrap-3.3.7-dist/css/bootstrap.min.css'/>">
 <link rel="stylesheet"
-	href="<c:url value='/bootstrap-3.3.7-dist/js/bootstrap.min.css' />">
+	href="<c:url value='/res/bootstrap-3.3.7-dist/js/bootstrap.min.js'/>">
 
 <style>
 .accordeon {
@@ -45,13 +45,14 @@
 	<div class="container-fluid">
 
 		<div class="col-xs-4" style="padding-top: 10%;">
-			<img
-				src="<c:url value='/assets/collaborateurs/${collab.photo} }'/>"
-				alt="image" title="image" class="img-responsive" />
+			<img src="<c:url value='/assets/collaborateurs/${collab.photo}'/>"
+				alt="${collab.nom} ${collab.prenom}"
+				title="${collab.nom} ${collab.prenom}" class="img-responsive" />
 		</div>
 
 		<div class="col-xs-8" style="padding-top: 5%;">
-			<form class="form-horizontal">
+			<form class="form-horizontal" method="post">
+				<input type="hidden" name="matricule" value="${ collab.matricule }"/>
 				<div class="row">
 					<div class="col-xs-10">
 						<h1>${fn:toUpperCase(collab.nom)}
@@ -73,32 +74,22 @@
 				</div>
 				<div class="row bloc col-xs-12 form-horizontal">
 					<div class="form-group" style="margin-top: 10px;">
-						<label class="col-md-4 control-label" for="civilite">Civilité</label>
-						<div class="col-md-4">
-							<select id="civilite" name="civilite" class="form-control">
-								<option value="1">M.</option>
-								<option value="2">Mme</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-md-4 control-label" for="nom">Nom</label>
 						<div class="col-md-4">
-							<input id="nom" name="nom" type="text"
-								value="${collab.nom}" class="form-control input-md"
-								disabled>
+							<input id="nom" name="nom" type="text" value="${collab.nom}"
+								class="form-control input-md" disabled>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="prenom">Prénom</label>
 						<div class="col-md-4">
 							<input id="prenom" name="prenom" type="text"
-								value="${collab.prenom}" class="form-control input-md"
-								disabled>
+								value="${collab.prenom}" class="form-control input-md" disabled>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="datenaissance">Date de naissance</label>
+						<label class="col-md-4 control-label" for="datenaissance">Date
+							de naissance</label>
 						<div class="col-md-4">
 							<input id="datenaissance" name="datenaissance" type="text"
 								value="${collab.dateNaissance}" class="form-control input-md"
@@ -124,8 +115,10 @@
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="telephone">Téléphone</label>
 						<div class="col-md-4">
-							<input id="telephone" name="telephone" type="text"
-								placeholder="Téléphone du collaborateur"
+							<input id="telephone" name="telephone" value="${collab.tel}"
+								pattern="^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$"
+								title="Merci de renseigner un numéro de téléphone valide"
+								type="text" placeholder="Téléphone du collaborateur"
 								class="form-control input-md" required>
 						</div>
 					</div>
@@ -142,7 +135,7 @@
 							du poste</label>
 						<div class="col-md-4">
 							<input id="poste" name="intitulePoste" type="text"
-								placeholder="Poste" class="form-control input-md" required>
+								placeholder="Poste" class="form-control input-md" value="${collab.intitulePoste}" required>
 						</div>
 					</div>
 					<div class="form-group">
@@ -150,9 +143,9 @@
 						<div class="col-md-4">
 							<select id="departement" name="departement" class="form-control">
 								<c:forEach var="d" items="${listeDepartements}">
-									<option value="${d.id}" <c:if test="${d.id == collab.departement.id}"> selected</c:if>>
-										${d.nom}
-									</option>
+									<option value="${d.id}"
+										<c:if test="${d.id == collab.departement.id}"> selected</c:if>>
+										${d.nom}</option>
 								</c:forEach>
 							</select>
 						</div>
@@ -170,14 +163,14 @@
 						<div class="col-md-4">
 							<input id="banque" name="banque" type="text"
 								placeholder="Banque du collaborateur"
-								class="form-control input-md" required>
+								class="form-control input-md" value="${collab.banque}" required>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-4 control-label" for="bic">BIC</label>
 						<div class="col-md-4">
 							<input id="bic" name="bic" type="text"
-								placeholder="BIC du collaborateur" class="form-control input-md"
+								placeholder="BIC du collaborateur" class="form-control input-md" value="${collab.bic}"
 								required>
 						</div>
 					</div>
@@ -186,7 +179,7 @@
 						<div class="col-md-4">
 							<input id="iban" name="iban" type="text"
 								placeholder="IBAN du collaborateur"
-								class="form-control input-md" required>
+								class="form-control input-md" value="${collab.iban}" required>
 						</div>
 					</div>
 				</div>

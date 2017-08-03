@@ -8,9 +8,9 @@
 <meta charset="UTF-8">
 <title>SGP - App</title>
 <link rel="stylesheet"
-	href="<c:url value='/bootstrap-3.3.7-dist/css/bootstrap.min.css'/>">
+	href="<c:url value='/res/bootstrap-3.3.7-dist/css/bootstrap.min.css'/>">
 <link rel="stylesheet"
-	href="<c:url value='/bootstrap-3.3.7-dist/js/bootstrap.min.css'/>">
+	href="<c:url value='/res/bootstrap-3.3.7-dist/js/bootstrap.min.js'/>">
 </head>
 <body>
 	<div class="container-fluid">
@@ -63,8 +63,7 @@
 
 					<div class="col-md-4">
 						<form class="form-horizontal" method="get" action="editer">
-							<legend>${collab.nom}
-								${collaborateur.prenom}</legend>
+							<legend>${collab.nom} ${collaborateur.prenom}</legend>
 							<div class="col-xs-4">
 								<img
 									src="<c:url value='/assets/collaborateurs/${collab.photo}'/>"
@@ -99,7 +98,7 @@
 										style="text-align: right; white-space: nowrap;">
 										<strong>Téléphone :</strong>
 									</div>
-									<div class="col-xs-6">%telephone%</div>
+									<div class="col-xs-6">${collab.tel}</div>
 								</div>
 								<div class="row" style="text-align: center;">
 									<input type="hidden" name="id"

@@ -2,6 +2,7 @@ package dev.sgp.web;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,13 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import dev.sgp.service.CollaborateurService;
 import dev.sgp.service.DepartementService;
-import dev.sgp.util.Constantes;
 
 @WebServlet("/collaborateurs/lister")
 public class ListerCollaborateursController extends HttpServlet {
 
-	private final CollaborateurService collabService = Constantes.COLLAB_SERVICE;
-	private final DepartementService departementService = Constantes.DEPARTEMENT_SERVICE;
+	@Inject private CollaborateurService collabService;
+	@Inject private DepartementService departementService;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

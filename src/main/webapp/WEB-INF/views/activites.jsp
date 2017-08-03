@@ -14,27 +14,21 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-6">
-				<h1>Statistiques</h1>
+				<h1>Activités depuis le démarrage de l'application</h1>
 			</div>
 		</div>
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>Chemin</th>
-					<th>Nombre de visites</th>
-					<th>Min (ms)</th>
-					<th>Max (ms)</th>
-					<th>Moyenne (ms)</th>
+					<th>Date/Heure</th>
+					<th>Libellé</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="visite" items="${listeVisites}">
+				<c:forEach var="action" items="${listeActivites}">
 					<tr>
-						<td>${ visite.key }</td>
-						<td>${ visite.value.getCount() }</td>
-						<td>${ visite.value.getMin() }</td>
-						<td>${ visite.value.getMax() }</td>
-						<td>${ visite.value.getAverage() }</td>
+						<td>${ action.dateHeure }</td>
+						<td>${ action.type.msg} - matricule : ${action.matricule }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
