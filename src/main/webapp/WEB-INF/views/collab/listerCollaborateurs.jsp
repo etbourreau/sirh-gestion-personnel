@@ -63,7 +63,7 @@
 
 					<div class="col-md-4">
 						<form class="form-horizontal" method="get" action="editer">
-							<legend>${collab.nom} ${collaborateur.prenom}</legend>
+							<legend>${collab.nom} ${collab.prenom}</legend>
 							<div class="col-xs-4">
 								<img
 									src="<c:url value='/assets/collaborateurs/${collab.photo}'/>"

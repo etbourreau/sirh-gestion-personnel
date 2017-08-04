@@ -15,7 +15,8 @@ import javax.persistence.Table;
 @Table(name="collaborateur")
 @NamedQueries({
 @NamedQuery(name="collaborateur.findAllCollaborateurs", query="select c from Collaborateur c"),
-@NamedQuery(name="collaborateur.getCollaborateurByMatricule", query="select c from Collaborateur c where c.matricule=:matricule")
+@NamedQuery(name="collaborateur.getCollaborateurByMatricule", query="select c from Collaborateur c where c.matricule=:matricule"),
+@NamedQuery(name="collaborateur.getCollaborateurByIdDepartement", query="select c from Collaborateur c where c.departement.id=:idDepartement")
 })
 public class Collaborateur {
 	

@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dev.sgp.entite.Collaborateur;
 import dev.sgp.entite.Departement;
 import dev.sgp.service.CollaborateurService;
@@ -31,8 +28,8 @@ public class EditerCollaborateurController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Optional<String> id = Optional.ofNullable(req.getParameter("id"));
-		if (id.isPresent() && collabService.getCollaborateurByMatricule(id.get()).isPresent()) {
-			req.setAttribute("collab", collabService.getCollaborateurByMatricule(id.get()).get());
+		if (id.isPresent() && collabService.getCollaborateurByMatricule(id.get())!=null) {
+			req.setAttribute("collab", collabService.getCollaborateurByMatricule(id.get()));
 			req.setAttribute("listeDepartements", departementService.listerDepartements());
 			req.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp").forward(req, resp);
 		} else {

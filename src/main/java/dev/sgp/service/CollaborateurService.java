@@ -3,7 +3,6 @@ package dev.sgp.service;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -35,17 +34,19 @@ public class CollaborateurService {
 	}
 
 	public void updateCollaborateur(Collaborateur collaborateur) {
-		Collaborateur c = getCollaborateurByMatricule(collaborateur.getMatricule()).get();
-		c.setActif(collaborateur.getActif());
-		c.setAdresse(collaborateur.getAdresse());
-		c.setBanque(collaborateur.getBanque());
-		c.setBic(collaborateur.getBic());
-		c.setIban(collaborateur.getIban());
-		c.setTel(collaborateur.getTel());
-		c.setIntitulePoste(collaborateur.getIntitulePoste());
-		c.setDepartement(collaborateur.getDepartement());
-		em.merge(c);
-		collabEvent.fire(new CollabEvt(ZonedDateTime.now(), TypeCollabEvt.MODIFICATION_COLLAB, collaborateur.getMatricule()));
+		Collaborateur c = getCollaborateurByMatricule(collaborateur.getMatricule());
+		if(c != null){
+			c.setActif(collaborateur.getActif());
+			c.setAdresse(collaborateur.getAdresse());
+			c.setBanque(collaborateur.getBanque());
+			c.setBic(collaborateur.getBic());
+			c.setIban(collaborateur.getIban());
+			c.setTel(collaborateur.getTel());
+			c.setIntitulePoste(collaborateur.getIntitulePoste());
+			c.setDepartement(collaborateur.getDepartement());
+			em.merge(c);
+			collabEvent.fire(new CollabEvt(ZonedDateTime.now(), TypeCollabEvt.MODIFICATION_COLLAB, collaborateur.getMatricule()));
+		}
 	}
 
 	public String getMatricule() {
@@ -70,10 +71,16 @@ public class CollaborateurService {
 		return prenom.toLowerCase() + "." + nom.toLowerCase() + "@" + ResourceBundle.getBundle("application").getString("emailSuffix");
 	}
 	
-	public Optional<Collaborateur> getCollaborateurByMatricule(String matricule){
+	public Collaborateur getCollaborateurByMatricule(String matricule){
 		return em.createNamedQuery("collaborateur.getCollaborateurByMatricule", Collaborateur.class)
 				.setParameter("matricule", matricule)
-				.getResultList().stream().filter(c -> c.getMatricule().equals(matricule)).findAny();
+				.getResultList().stream().filter(c -> c.getMatricule().equals(matricule)).findAny().orElse(null);
+	}
+	
+	public List<Collaborateur> getCollaborateurByIdDepartement(int idDepartement){
+		return em.createNamedQuery("collaborateur.getCollaborateurByIdDepartement", Collaborateur.class)
+				.setParameter("idDepartement", idDepartement)
+				.getResultList();
 	}
 
 }

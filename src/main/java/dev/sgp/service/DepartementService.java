@@ -1,6 +1,5 @@
 package dev.sgp.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import dev.sgp.entite.Departement;
-import dev.sgp.exceptions.InvalidDepartementException;
 
 @Stateless
 public class DepartementService {

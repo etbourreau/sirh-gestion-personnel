@@ -33,7 +33,7 @@ public class FrequentationFilter implements Filter {
 		chain.doFilter(request, response);
 		long after = System.currentTimeMillis();
 		int delay = (int) (after - before);
-		if(path.contains("/res/") || path.contains("/assets/")){
+		if(path.contains("/res/") || path.contains("/assets/") || path.contains("/api/")){
 			return;
 		}
 		visites.sauvegarderVisite(new VisiteWeb(visites.getId(), path, delay));

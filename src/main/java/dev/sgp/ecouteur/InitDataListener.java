@@ -32,6 +32,9 @@ public class InitDataListener implements ServletContextListener {
 		cs.sauvegarderCollaborateur(new Collaborateur(UUID.randomUUID().toString(), "Guironnet", "Damichou",
 				LocalDate.of(1992, 3, 21), "5 rue des Coquelicots", "223456789012345", cs.getEmail("Guironnet", "Damichou"), "image.jpg", ZonedDateTime.now(), true,
 				"Développeur Front .NET", dps.getDepartementById(3), "Crédit Agricole", "4 couleurs", "Taliban", "0664880470"));
+		cs.sauvegarderCollaborateur(new Collaborateur(UUID.randomUUID().toString(), "Samson", "Jéjé",
+				LocalDate.of(1993, 1, 7), "19 rue des Aubergines", "123456789012345", cs.getEmail("Samson", "Jéjé"), "image.jpg", ZonedDateTime.now(), true,
+				"Développeur COBOL", dps.getDepartementById(3), "Brico Dépôt", "Violet", "Cali Bani", "0647924931"));
 	}
 
 	@Override
