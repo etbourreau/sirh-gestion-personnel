@@ -45,7 +45,7 @@
 	<div class="container-fluid">
 
 		<div class="col-xs-4" style="padding-top: 10%;">
-			<img src="<c:url value='/assets/collaborateurs/${collab.photo}'/>"
+			<img src="${collab.photo}"
 				alt="${collab.nom} ${collab.prenom}"
 				title="${collab.nom} ${collab.prenom}" class="img-responsive" />
 		</div>

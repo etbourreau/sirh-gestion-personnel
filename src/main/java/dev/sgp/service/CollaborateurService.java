@@ -5,12 +5,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.apache.commons.lang3.StringUtils;
 
 import dev.sgp.entite.CollabEvt;
 import dev.sgp.entite.Collaborateur;
@@ -22,10 +25,30 @@ public class CollaborateurService {
 	@Inject Event<CollabEvt> collabEvent;
 	@PersistenceContext private EntityManager em;
 
-	public List<Collaborateur> listerCollaborateurs() {
-		return em.createNamedQuery("collaborateur.findAllCollaborateurs",
+	public List<Collaborateur> listerCollaborateurs(String nom, Integer idDepartement, Boolean includeInactifs) {
+		List<Collaborateur> liste = em.createNamedQuery("collaborateur.findAllCollaborateurs",
 				Collaborateur.class)
 				.getResultList();
+		
+		if(nom!= null){
+			liste = liste.stream()
+				.filter(c -> StringUtils.containsIgnoreCase(c.getNom()+" "+c.getPrenom(), nom))
+				.collect(Collectors.toList());
+		}
+		
+		if(idDepartement != 0){
+			liste = liste.stream()
+				.filter(c -> c.getDepartement().getId()==idDepartement)
+				.collect(Collectors.toList());
+		}
+		
+		if(!includeInactifs){
+			liste = liste.stream()
+				.filter(c -> c.getActif())
+				.collect(Collectors.toList());
+		}
+		
+		return liste;
 	}
 
 	public void sauvegarderCollaborateur(Collaborateur collab) {

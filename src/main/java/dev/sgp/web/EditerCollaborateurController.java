@@ -27,7 +27,7 @@ public class EditerCollaborateurController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Optional<String> id = Optional.ofNullable(req.getParameter("id"));
+		Optional<String> id = Optional.ofNullable(req.getParameter("matricule"));
 		if (id.isPresent() && collabService.getCollaborateurByMatricule(id.get())!=null) {
 			req.setAttribute("collab", collabService.getCollaborateurByMatricule(id.get()));
 			req.setAttribute("listeDepartements", departementService.listerDepartements());

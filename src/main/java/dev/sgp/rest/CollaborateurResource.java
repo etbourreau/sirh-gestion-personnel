@@ -35,7 +35,7 @@ public class CollaborateurResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Collaborateur> getCollaborateurs(@QueryParam("departement") Integer idDepartement) {
 		if(idDepartement==null){
-			return cs.listerCollaborateurs();
+			return cs.listerCollaborateurs(null, 0, true);
 		}else{
 			return cs.getCollaborateurByIdDepartement(idDepartement);
 		}

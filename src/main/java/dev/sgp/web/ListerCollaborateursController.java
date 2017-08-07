@@ -1,6 +1,7 @@
 package dev.sgp.web;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,7 +22,31 @@ public class ListerCollaborateursController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setAttribute("listeCollabs", collabService.listerCollaborateurs());
+		String rechNom = null;
+		Integer rechDepartement = 0;
+		Boolean rechInactifs = false;
+		
+		Optional<Object> filtreNom = Optional.ofNullable(req.getParameter("nom"));
+		if(filtreNom.isPresent() && !filtreNom.get().equals("")){
+			rechNom = (String) filtreNom.get();
+			req.setAttribute("nom", rechNom);
+		}else{
+			req.setAttribute("nom", "");
+		}
+		
+		Optional<Object> filtreDepartement = Optional.ofNullable(req.getParameter("departement"));
+		if(filtreDepartement.isPresent() && !filtreDepartement.get().equals("")){
+			rechDepartement = Integer.valueOf((String) filtreDepartement.get());
+		}
+		req.setAttribute("departement", rechDepartement);
+		
+		Optional<Object> filtreInactifs = Optional.ofNullable(req.getParameter("inactifs"));
+		if(filtreInactifs.isPresent() && !filtreInactifs.get().equals("")){
+			rechInactifs = true;
+		}
+		req.setAttribute("inactifs", rechInactifs);
+		
+		req.setAttribute("listeCollabs", collabService.listerCollaborateurs(rechNom, rechDepartement, rechInactifs));
 		req.setAttribute("listeDepartements", departementService.listerDepartements());
 		req.getRequestDispatcher("/WEB-INF/views/collab/listerCollaborateurs.jsp").forward(req, resp);
 		
