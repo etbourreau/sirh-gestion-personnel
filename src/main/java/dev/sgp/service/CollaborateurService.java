@@ -75,7 +75,7 @@ public class CollaborateurService {
 	public String getMatricule() {
 		Boolean notValid;
 		String matricule;
-		List<Collaborateur> listeCollaborateurs = em.createNamedQuery("collaborateur.findAllCollaborateur", Collaborateur.class)
+		List<Collaborateur> listeCollaborateurs = em.createNamedQuery("collaborateur.findAllCollaborateurs", Collaborateur.class)
 				.getResultList();
 		do {
 			notValid = false;

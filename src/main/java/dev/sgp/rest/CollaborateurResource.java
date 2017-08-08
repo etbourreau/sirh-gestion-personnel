@@ -15,9 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import dev.sgp.entite.Collaborateur;
 import dev.sgp.entite.Departement;
 import dev.sgp.service.CollaborateurService;
@@ -28,8 +25,6 @@ public class CollaborateurResource {
 	
 	@Inject CollaborateurService cs;
 	@Inject DepartementService dps;
-	
-	private static final Logger LOG = LoggerFactory.getLogger(CollaborateurResource.class);
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

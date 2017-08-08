@@ -45,7 +45,7 @@ public class AjouterCollaborateurController extends HttpServlet {
 					Integer.parseInt(date[0]));
 			Collaborateur collab = new Collaborateur(collabService.getMatricule(), params.get(0), params.get(1),
 					dateNaissance, params.get(3), params.get(4), collabService.getEmail(params.get(0), params.get(1)),
-					"image.jpg", ZonedDateTime.now(), true, "Employé", departService.getDepartementById(1), "", "", "", "");
+					"default.jpg", ZonedDateTime.now(), true, "Employé", departService.getDepartementById(1), "", "", "", "");
 			collabService.sauvegarderCollaborateur(collab);
 		}
 		resp.sendRedirect("lister");

@@ -116,7 +116,7 @@
 					<div class="row">
 						<div class="row col-xs-4">
 							<img
-								src="${collab.photo}"
+								src="<c:if test="${collab.photo eq 'default.jpg'}"><c:url value='/assets/collaborateurs/'/></c:if>${collab.photo}"
 								alt="${collab.nom} ${collab.prenom}"
 								title="${collab.nom} ${collab.prenom}" class="img-responsive" />
 						</div>
